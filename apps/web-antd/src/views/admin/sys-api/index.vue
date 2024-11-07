@@ -2,15 +2,16 @@
 import type { VbenFormProps } from '#/adapter/form';
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { h } from 'vue';
+import { createVNode, h } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
-import { MajesticonsEditOpen4 } from '@vben/icons';
+import { MajesticonsEditOpen4, WeuiDeleteOutlined } from '@vben/icons';
 
-import { Button, message, Tag } from 'ant-design-vue';
+import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
+import { Modal as antdModal, Button, message, Tag } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { listSysApi } from '#/api/core/sys-interface';
+import { delSysApi, listSysApi } from '#/api/core/sys-interface';
 
 import EditDrawer from './drawer.vue';
 
@@ -139,13 +140,38 @@ const gridOptions: VxeGridProps<RowType> = {
   },
 };
 
-const [Grid] = useVbenVxeGrid({ formOptions, gridOptions });
+const [Grid, gridApi] = useVbenVxeGrid({ formOptions, gridOptions });
 
-const openDrawer = (row) => {
+const onEdit = (row: any) => {
   drawerApi.setData({
-    id: row.id,
+    type: 'edit',
+    id: row.apiId,
+    reload: gridApi.reload,
   });
   drawerApi.open();
+};
+
+const onAdd = () => {
+  drawerApi.setData({
+    type: 'add',
+    reload: gridApi.reload,
+  });
+  drawerApi.open();
+};
+
+const onDelete = async (row: any) => {
+  antdModal.confirm({
+    title: '是否确认删除吗',
+    icon: createVNode(ExclamationCircleOutlined),
+    async onOk() {
+      const req: any = {
+        apiIds: [row.apiId],
+      };
+      await delSysApi(req);
+      message.success('删除成功');
+      gridApi.reload();
+    },
+  });
 };
 </script>
 
@@ -171,19 +197,25 @@ const openDrawer = (row) => {
         {{ row.path }}
       </template>
       <template #toolbar-actions>
-        <Button class="mr-2" type="primary">新增</Button>
+        <Button class="mr-2" type="primary" @click="onAdd">新增</Button>
       </template>
       <template #action="{ row }">
-        <Button :icon="h(MajesticonsEditOpen4)" type="link">
-          <span class="ml-2" @click="openDrawer(row)">编辑</span>
+        <Button
+          v-if="row.modifiable"
+          :icon="h(MajesticonsEditOpen4)"
+          type="link"
+          @click="onEdit(row)"
+        >
+          <span class="ml-2">编辑</span>
         </Button>
-        <!-- <Button
-          v-if="row.roleKey !== 'admin'"
+        <Button
+          v-if="row.modifiable"
           :icon="h(WeuiDeleteOutlined)"
           type="link"
+          @click="onDelete(row)"
         >
           <span class="ml-2">删除</span>
-        </Button> -->
+        </Button>
       </template>
     </Grid>
     <Drawer />

@@ -9,7 +9,13 @@ import { useVbenForm } from '#/adapter/form';
 import { roleMenuTreeselect } from '#/api/core/menu';
 import { addRole, getRole, updateRole } from '#/api/core/role';
 
-const data = ref({
+interface ChildProps {
+  type: 'add' | 'edit';
+  reload: () => void;
+  id?: number;
+}
+
+const data = ref<ChildProps>({
   type: 'add',
   reload: () => {},
 });
@@ -135,19 +141,19 @@ const [Drawer, drawerApi] = useVbenDrawer({
     // console.log(body, selectedKeys.value, checkedKeys.value);
     await (data.value.type === 'add'
       ? addRole(body)
-      : updateRole(body, data.value.id));
+      : updateRole(body, data.value.id as number));
     message.success('操作成功');
     drawerApi.close();
     data.value.reload();
   },
   async onOpenChange(isOpen: boolean) {
     if (isOpen) {
-      const ans = drawerApi.getData<Record<string, any>>();
+      const ans = drawerApi.getData<ChildProps>();
       data.value = ans;
       if (ans.type === 'edit') {
         const detail = await getRole(ans.id);
         roleInfo.value = detail;
-        FormApi.setValues({
+        await FormApi.setValues({
           ...detail,
         });
         checkedKeys.value = detail.menus;

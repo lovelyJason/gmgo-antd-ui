@@ -12,12 +12,12 @@ export function getSysApi(id: number | string) {
 
 // 新增SysApi
 export function addSysApi(data: any) {
-  return requestClient.post('/sys-api/addd', data);
+  return requestClient.post('/sys-api/add', data);
 }
 
 // 修改SysApi
 export function updateSysApi(data: any) {
-  return requestClient.post(`/sys-api/edit/${data.id}`, data);
+  return requestClient.post(`/sys-api/edit`, data);
 }
 
 // 删除SysApi
