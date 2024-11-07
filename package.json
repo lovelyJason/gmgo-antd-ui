@@ -1,17 +1,14 @@
 {
-  "name": "vben-admin-monorepo",
-  "version": "5.4.2",
+  "name": "gamebff-frontend",
+  "version": "0.1.0",
   "private": true,
   "keywords": [
     "monorepo",
     "turbo",
-    "vben",
-    "vben admin",
-    "vben pro",
+    "vue admin",
+    "vue pro",
     "vue",
     "vue admin",
-    "vue vben admin",
-    "vue vben admin pro",
     "vue3"
   ],
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
@@ -19,9 +16,9 @@
   "repository": "vbenjs/vue-vben-admin.git",
   "license": "MIT",
   "author": {
-    "name": "vben",
-    "email": "ann.vben@gmail.com",
-    "url": "https://github.com/anncwb"
+    "name": "jasonhuang",
+    "email": "jasonhuang@dofun.cn",
+    "url": "https://git.dofun.work/Jasonhuang"
   },
   "type": "module",
   "scripts": {
@@ -30,8 +27,6 @@
     "build:antd": "pnpm run build --filter=@vben/web-antd",
     "build:docker": "./scripts/deploy/build-local-docker-image.sh",
     "build:docs": "pnpm run build --filter=@vben/docs",
-    "build:ele": "pnpm run build --filter=@vben/web-ele",
-    "build:naive": "pnpm run build --filter=@vben/web-naive",
     "build:play": "pnpm run build --filter=@vben/playground",
     "changeset": "pnpm exec changeset",
     "check": "pnpm run check:circular && pnpm run check:dep && pnpm run check:type && pnpm check:cspell",
@@ -44,8 +39,6 @@
     "dev": "turbo-run dev",
     "dev:antd": "pnpm -F @vben/web-antd run dev",
     "dev:docs": "pnpm -F @vben/docs run dev",
-    "dev:ele": "pnpm -F @vben/web-ele run dev",
-    "dev:naive": "pnpm -F @vben/web-naive run dev",
     "dev:play": "pnpm -F @vben/playground run dev",
     "format": "vsh lint --format",
     "lint": "vsh lint",

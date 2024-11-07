@@ -6,7 +6,7 @@ import type {
   WorkbenchTrendItem,
 } from '@vben/common-ui';
 
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import {
   AnalysisChartCard,
@@ -195,6 +195,20 @@ const trendItems: WorkbenchTrendItem[] = [
     title: 'Vben',
   },
 ];
+
+// const createWebsocket = () => {
+//   const socket = new WebSocket('ws://localhost:8000/ws/12345/channel1');
+//   socket.onopen = () => {
+//     socket.send('client start');
+//   };
+//   socket.onmessage = (e) => {
+//     console.log('ws:', e);
+//   };
+// };
+
+onMounted(() => {
+  // createWebsocket();
+});
 </script>
 
 <template>

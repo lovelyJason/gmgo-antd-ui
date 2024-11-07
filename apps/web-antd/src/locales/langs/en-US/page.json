@@ -10,5 +10,12 @@
     "title": "Dashboard",
     "analytics": "Analytics",
     "workspace": "Workspace"
+  },
+  "system": {
+    "title": "系统管理",
+    "role": "角色管理",
+    "user": "用户管理",
+    "menu": "菜单管理",
+    "api": "接口管理"
   }
 }

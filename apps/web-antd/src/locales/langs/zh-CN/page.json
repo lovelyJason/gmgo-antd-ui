@@ -10,5 +10,21 @@
     "title": "概览",
     "analytics": "分析页",
     "workspace": "工作台"
+  },
+  "system": {
+    "title": "系统管理",
+    "role": "角色管理",
+    "user": "用户管理",
+    "menu": "菜单管理",
+    "api": "接口管理",
+    "department": "部门管理"
+  },
+  "tools": {
+    "title": "系统工具",
+    "monitor": "服务监控"
+  },
+  "releaseMng": {
+    "title": "版本系统",
+    "remoteConfig": "远程配置"
   }
 }

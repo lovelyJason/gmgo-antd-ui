@@ -67,7 +67,8 @@ function useMixedMenu() {
     if (!needSplit.value) {
       return route.path;
     }
-    return rootMenuPath.value;
+    // 修订：这是为了固定首页，且进来时如果是混合菜单布局，需要默认一个
+    return rootMenuPath.value || '/admin';
   });
 
   /**

@@ -20,6 +20,7 @@ export async function initStores(app: App, options: InitStoreOptions) {
   const { createPersistedState } = await import('pinia-plugin-persistedstate');
   pinia = createPinia();
   const { namespace } = options;
+  // console.log('~💚namespace:', namespace);
   pinia.use(
     createPersistedState({
       // key $appName-$store.id

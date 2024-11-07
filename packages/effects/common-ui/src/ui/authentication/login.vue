@@ -29,12 +29,12 @@ const props = withDefaults(defineProps<Props>(), {
   loading: false,
   qrCodeLoginPath: '/auth/qrcode-login',
   registerPath: '/auth/register',
-  showCodeLogin: true,
-  showForgetPassword: true,
-  showQrcodeLogin: true,
-  showRegister: true,
+  showCodeLogin: false,
+  showForgetPassword: false,
+  showQrcodeLogin: false,
+  showRegister: false,
   showRememberMe: true,
-  showThirdPartyLogin: true,
+  showThirdPartyLogin: false,
   submitButtonText: '',
   subTitle: '',
   title: '',
@@ -62,6 +62,7 @@ const localUsername = localStorage.getItem(REMEMBER_ME_KEY) || '';
 
 const rememberMe = ref(!!localUsername);
 
+// 登录系统
 async function handleSubmit() {
   const { valid } = await validate();
   const values = await getValues();
@@ -70,7 +71,11 @@ async function handleSubmit() {
       REMEMBER_ME_KEY,
       rememberMe.value ? values?.username : '',
     );
-    emit('submit', values);
+    emit('submit', {
+      ...values,
+      code: 'sd',
+      uuid: 'JKFnCxZztE6Q3TYOjFqJ',
+    });
   }
 }
 

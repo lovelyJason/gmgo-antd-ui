@@ -1,9 +1,12 @@
+// import { useRouter } from 'vue-router';
 import type { RequestClient } from './request-client';
 import type { MakeErrorMessageFn, ResponseInterceptorConfig } from './types';
 
 import { $t } from '@vben/locales';
 
 import axios from 'axios';
+
+// const STATUS_TOKEN_INVALID = 401;
 
 export const authenticateResponseInterceptor = ({
   client,
@@ -21,7 +24,12 @@ export const authenticateResponseInterceptor = ({
   return {
     rejected: async (error) => {
       const { config, response } = error;
+      // if (response.data.code === STATUS_TOKEN_INVALID) {
+      //   window.location.href = '/auth/login';
+      //   return;
+      // }
       // 如果不是 401 错误，直接抛出异常
+      // console.log(response);
       if (response?.status !== 401) {
         throw error;
       }
@@ -116,7 +124,8 @@ export const errorMessageResponseInterceptor = (
           break;
         }
         default: {
-          errorMessage = $t('ui.fallback.http.internalServerError');
+          errorMessage =
+            error.data.msg || $t('ui.fallback.http.internalServerError');
         }
       }
       makeErrorMessage?.(errorMessage, error);

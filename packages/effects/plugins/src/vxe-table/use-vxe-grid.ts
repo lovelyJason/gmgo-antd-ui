@@ -7,6 +7,7 @@ import { useStore } from '@vben-core/shared/store';
 import { VxeGridApi } from './api';
 import VxeGrid from './use-vxe-grid.vue';
 
+// 封装目的：扩展了api可以调用store，组件卸载时进行清理
 export function useVbenVxeGrid(options: VxeGridProps) {
   // const IS_REACTIVE = isReactive(options);
   const api = new VxeGridApi(options);
