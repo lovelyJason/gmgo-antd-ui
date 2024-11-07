@@ -1,4 +1,7 @@
-<h1>game-mng</h1>
+<h1>gmgo-antd-ui</h1>
+
+![image](https://github.com/user-attachments/assets/a7935e04-3f9d-4af2-8bf2-26200877d853)
+
 ## 简介
 
 基于Vue Vben Admin 5.4.0。作为一个免费开源的中后台模板，它采用了最新的 Vue 3、Vite、TypeScript 等主流技术开发，开箱即用
@@ -24,7 +27,7 @@
 - 获取项目代码
 
 ```bash
-git clone https://github.com/vbenjs/vue-vben-admin.git
+git clone https://github.com/lovelyJason/gmgo-antd-ui.git
 ```
 
 - 安装依赖
