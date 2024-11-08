@@ -153,6 +153,8 @@ const [Drawer, drawerApi] = useVbenDrawer({
     drawerApi.close();
   },
   async onConfirm() {
+    const res = await FormApi.validate();
+    if (!res.valid) return;
     const values = await FormApi.getValues();
     await (data.value.type === 'add'
       ? addUser(values)

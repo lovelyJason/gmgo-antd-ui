@@ -61,7 +61,7 @@ const formOptions: VbenFormProps = {
   collapsed: false,
   schema: [
     {
-      component: 'Select',
+      component: 'Input',
       fieldName: 'title',
       label: '菜单名称',
     },
@@ -119,10 +119,14 @@ const gridOptions: VxeGridProps<RowType> = {
   height: 'auto',
   keepSource: true,
   pagerConfig: {},
+  rowConfig: {
+    keyField: 'menuId',
+  },
   treeConfig: {
     rowField: 'deptId',
     childrenField: 'children',
     expandAll: false,
+    expandRowKeys: [2, 537],
   },
   proxyConfig: {
     ajax: {

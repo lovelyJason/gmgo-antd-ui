@@ -304,6 +304,8 @@ const [Drawer, drawerApi] = useVbenDrawer({
     drawerApi.close();
   },
   async onConfirm() {
+    const res = await FormApi.validate();
+    if (!res.valid) return;
     const values = await FormApi.getValues();
     const body = { ...values };
     if (values.menuType !== 'M') {

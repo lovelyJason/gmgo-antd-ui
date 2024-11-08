@@ -35,33 +35,33 @@ const formOptions: VbenFormProps = {
   schema: [
     {
       component: 'Input',
-      fieldName: 'category',
+      fieldName: 'roleName',
       label: '名称',
     },
     {
       component: 'Input',
-      fieldName: 'productName',
+      fieldName: 'roleKey',
       label: '权限字符',
     },
-    {
-      component: 'Select',
-      componentProps: {
-        allowClear: true,
-        options: [
-          {
-            label: '正常',
-            value: '2',
-          },
-          {
-            label: '停用',
-            value: '1',
-          },
-        ],
-        placeholder: '请选择',
-      },
-      fieldName: 'color',
-      label: '状态',
-    },
+    // {
+    //   component: 'Select',
+    //   componentProps: {
+    //     allowClear: true,
+    //     options: [
+    //       {
+    //         label: '正常',
+    //         value: '2',
+    //       },
+    //       {
+    //         label: '停用',
+    //         value: '1',
+    //       },
+    //     ],
+    //     placeholder: '请选择',
+    //   },
+    //   fieldName: 'status',
+    //   label: '状态',
+    // },
     // {
     //   component: 'DatePicker',
     //   fieldName: 'datePicker',

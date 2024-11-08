@@ -148,6 +148,14 @@ const slots = useSlots();
 const headerSlots = computed(() => {
   return Object.keys(slots).filter((key) => key.startsWith('header-'));
 });
+// 修订，这是为了在混合菜单布局时让首页也显示sidebar，默认是不显示的
+// onMounted(() => {
+//   console.log('basic/layout mounted');
+//   if (isMixedNav.value) {
+//     // FIXME:取动态菜单
+//     handleMenuSelect('/admin', 'horizontal');
+//   }
+// });
 </script>
 
 <template>

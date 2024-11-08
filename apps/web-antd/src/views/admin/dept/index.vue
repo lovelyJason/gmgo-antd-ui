@@ -4,7 +4,7 @@ import type { VxeGridProps } from '#/adapter/vxe-table';
 
 import { h } from 'vue';
 
-import { Page } from '@vben/common-ui';
+import { Page, useVbenDrawer } from '@vben/common-ui';
 import {
   MajesticonsEditOpen4,
   WeuiAddFilled,
@@ -15,6 +15,8 @@ import { Button, message, Tag } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { getDeptList } from '#/api/core/department';
+
+import EditDrawer from './drawer.vue';
 
 defineOptions({
   name: 'SysDeptManage',
@@ -102,7 +104,20 @@ const gridOptions: VxeGridProps<RowType> = {
   },
 };
 
-const [Grid] = useVbenVxeGrid({ formOptions, gridOptions });
+const [Grid, gridApi] = useVbenVxeGrid({ formOptions, gridOptions });
+
+const [Drawer, drawerApi] = useVbenDrawer({
+  connectedComponent: EditDrawer,
+});
+
+const onEdit = (row: any) => {
+  drawerApi.setData({
+    type: 'edit',
+    id: row.deptId,
+    reload: gridApi.reload,
+  });
+  drawerApi.open();
+};
 </script>
 
 <template>
@@ -116,7 +131,11 @@ const [Grid] = useVbenVxeGrid({ formOptions, gridOptions });
         <Button class="mr-2" type="primary">新增</Button>
       </template>
       <template #action="{ row }">
-        <Button :icon="h(MajesticonsEditOpen4)" type="link">
+        <Button
+          :icon="h(MajesticonsEditOpen4)"
+          type="link"
+          @click="onEdit(row)"
+        >
           <span class="ml-2">修改</span>
         </Button>
         <Button :icon="h(WeuiAddFilled)" type="link">
@@ -131,5 +150,6 @@ const [Grid] = useVbenVxeGrid({ formOptions, gridOptions });
         </Button>
       </template>
     </Grid>
+    <Drawer />
   </Page>
 </template>

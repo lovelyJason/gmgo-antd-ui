@@ -20,12 +20,11 @@ defineOptions({
 });
 
 interface RowType {
-  category: string;
-  color: string;
+  title: string;
+  path: string;
   id: string;
-  price: string;
-  productName: string;
-  releaseDate: string;
+  action: string;
+  type: string;
 }
 
 const [Drawer, drawerApi] = useVbenDrawer({
@@ -44,7 +43,7 @@ const formOptions: VbenFormProps = {
     },
     {
       component: 'Input',
-      fieldName: 'productName',
+      fieldName: 'path',
       label: '地址',
     },
     {
@@ -54,24 +53,24 @@ const formOptions: VbenFormProps = {
         options: [
           {
             label: 'GET',
-            value: '1',
+            value: 'GET',
           },
           {
             label: 'POST',
-            value: '2',
+            value: 'POST',
           },
           {
             label: 'PUT',
-            value: '3',
+            value: 'PUT',
           },
           {
             label: 'DELETE',
-            value: '4',
+            value: 'DELETE',
           },
         ],
         placeholder: '请选择Method',
       },
-      fieldName: 'color',
+      fieldName: 'action',
       label: 'Method',
     },
     {
@@ -81,16 +80,16 @@ const formOptions: VbenFormProps = {
         options: [
           {
             label: 'SYS',
-            value: '1',
+            value: 'SYS',
           },
           {
             label: 'BUS',
-            value: '2',
+            value: 'BUS',
           },
         ],
         placeholder: '请选择类型',
       },
-      fieldName: 'color',
+      fieldName: 'type',
       label: '类型',
     },
     // {

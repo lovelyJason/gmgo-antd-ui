@@ -193,7 +193,7 @@ const onUserStatusChange = async (checked: string, record: any) => {
       <template #status="{ row }">
         <Switch
           v-model:checked="row.status"
-          :disalbed="row.userId === 1"
+          :disabled="row.userId === 1"
           checked-value="2"
           un-checked-value="1"
           @change="onUserStatusChange($event, row)"
