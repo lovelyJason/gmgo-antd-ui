@@ -41,6 +41,8 @@
     "@vben/styles": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
+    "@vben-core/composables": "workspace:*",
+    "@vben-core/shadcn-ui": "workspace:*",
     "@vueuse/core": "catalog:",
     "ant-design-vue": "catalog:",
     "dayjs": "catalog:",

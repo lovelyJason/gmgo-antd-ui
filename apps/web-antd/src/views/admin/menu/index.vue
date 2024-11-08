@@ -10,6 +10,8 @@ import {
   WeuiAddFilled,
   WeuiDeleteOutlined,
 } from '@vben/icons';
+import { useNamespace } from '@vben-core/composables';
+import { VbenIcon } from '@vben-core/shadcn-ui';
 
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
 import { Modal as antdModal, Button, message, Tag } from 'ant-design-vue';
@@ -48,6 +50,8 @@ export interface MenuType {
   component: string;
   children: MenuType[];
 }
+
+const nsMenu = useNamespace('menu');
 
 const menuList = ref<MenuType[]>([]);
 const sysApiList = ref<any[]>([]);
@@ -94,7 +98,12 @@ const gridOptions: VxeGridProps<RowType> = {
   },
   columns: [
     { field: 'title', title: '菜单名称', width: 500, treeNode: true },
-    { field: 'icon', title: '图标', width: '120px' },
+    {
+      field: 'icon',
+      title: '图标',
+      width: '120px',
+      slots: { default: 'icon' },
+    },
     { field: 'sort', title: '排序', width: '60px' },
     { field: 'permission', title: '权限标识' },
     { field: 'path', title: '组件路径', slots: { default: 'path' } },
@@ -207,6 +216,13 @@ onMounted(() => {
 <template>
   <Page auto-content-height>
     <Grid>
+      <template #icon="{ row }">
+        <VbenIcon
+          :class="nsMenu.e('icon')"
+          :icon="row.icon"
+          style="width: 26px; height: 26px"
+        />
+      </template>
       <template #path="{ row }">
         <span v-if="row.menuType === 'A'">{{ row.path }}</span>
         <span v-else>{{ row.component }}</span>

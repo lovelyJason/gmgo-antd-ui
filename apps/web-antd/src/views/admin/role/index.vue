@@ -2,15 +2,16 @@
 import type { VbenFormProps } from '#/adapter/form';
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { h } from 'vue';
+import { createVNode, h } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { MajesticonsEditOpen4, WeuiDeleteOutlined } from '@vben/icons';
 
-import { Button, message, Switch } from 'ant-design-vue';
+import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
+import { Modal as antdModal, Button, message, Switch } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { changeRoleStatus, listRole } from '#/api/core/role';
+import { changeRoleStatus, delRole, listRole } from '#/api/core/role';
 
 import EditDrawer from './drawer.vue';
 // import { changeUserStatus } from '#/api';
@@ -34,7 +35,6 @@ const formOptions: VbenFormProps = {
   schema: [
     {
       component: 'Input',
-      defaultValue: '1',
       fieldName: 'category',
       label: '名称',
     },
@@ -84,7 +84,7 @@ const gridOptions: VxeGridProps<RowType> = {
     { field: 'roleName', title: '名称' },
     { field: 'roleKey', title: '权限字符' },
     { field: 'roleSort', title: '排序' },
-    { field: 'status', title: '状态', slots: { default: 'status' } },
+    // { field: 'status', title: '状态', slots: { default: 'status' } },
     { field: 'createdAt', formatter: 'formatDateTime', title: '创建时间' },
     { align: 'left', slots: { default: 'action' }, title: '操作' },
   ],
@@ -134,6 +134,21 @@ const onAdd = () => {
   drawerApi.open();
 };
 
+const onDelete = (row: any) => {
+  antdModal.confirm({
+    title: '是否确认删除吗',
+    icon: createVNode(ExclamationCircleOutlined),
+    async onOk() {
+      const req: any = {
+        roleId: row.roleId,
+      };
+      await delRole(req);
+      message.success('操作成功');
+      gridApi.reload();
+    },
+  });
+};
+
 const onUserStatusChange = async (checked: string, record: any) => {
   try {
     const { roleId } = record;
@@ -152,6 +167,7 @@ const onUserStatusChange = async (checked: string, record: any) => {
       <template #status="{ row }">
         <Switch
           v-model:checked="row.status"
+          :disabled="row.roleKey === 'admin'"
           checked-value="2"
           un-checked-value="1"
           @change="onUserStatusChange($event, row)"
@@ -175,6 +191,7 @@ const onUserStatusChange = async (checked: string, record: any) => {
           v-if="row.roleKey !== 'admin'"
           :icon="h(WeuiDeleteOutlined)"
           type="link"
+          @click="onDelete(row)"
         >
           <span class="ml-2">删除</span>
         </Button>

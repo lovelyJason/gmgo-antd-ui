@@ -25,6 +25,7 @@ const selectedKeys = ref<string[]>([]);
 const checkedKeys = ref<string[]>([]);
 
 const disabled = computed(() => data.value.type === 'edit');
+const isAdmin = computed(() => roleInfo.value.roleKey === 'admin');
 
 const schema = ref<any>([
   {
@@ -70,6 +71,7 @@ const schema = ref<any>([
     component: 'InputNumber',
     componentProps: {
       placeholder: '请输入',
+      disabled: isAdmin,
     },
     fieldName: 'roleSort',
     label: '角色顺序',
@@ -79,6 +81,7 @@ const schema = ref<any>([
     component: 'RadioGroup',
     componentProps: {
       placeholder: '请输入',
+      disabled: isAdmin,
       options: [
         {
           label: '正常',

@@ -182,8 +182,7 @@ const onUserStatusChange = async (checked: string, record: any) => {
     });
     // gridApi.reload();
   } catch {
-    // console.log('error', error);
-    record.status = 3 - Number.parseInt(checked);
+    record.status = String(3 - Number.parseInt(checked));
   }
 };
 </script>
@@ -194,6 +193,7 @@ const onUserStatusChange = async (checked: string, record: any) => {
       <template #status="{ row }">
         <Switch
           v-model:checked="row.status"
+          :disalbed="row.userId === 1"
           checked-value="2"
           un-checked-value="1"
           @change="onUserStatusChange($event, row)"
@@ -204,6 +204,7 @@ const onUserStatusChange = async (checked: string, record: any) => {
       </template>
       <template #action="{ row }">
         <Button
+          v-if="row.userId !== 1"
           :icon="h(MajesticonsEditOpen4)"
           type="link"
           @click="onEdit(row)"
@@ -218,7 +219,11 @@ const onUserStatusChange = async (checked: string, record: any) => {
         >
           <span class="ml-2">删除</span>
         </Button>
-        <Button :icon="h(FluentKeyReset20Regular)" type="link">
+        <Button
+          v-if="row.userId !== 1"
+          :icon="h(FluentKeyReset20Regular)"
+          type="link"
+        >
           <span class="ml-2" @click="onPasswordReset(row)">重置</span>
         </Button>
       </template>

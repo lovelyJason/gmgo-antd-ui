@@ -35,8 +35,8 @@ export function changeRoleStatus(roleId: any, status: string) {
 }
 
 // 删除角色
-export function delRole(roleId: any) {
-  return requestClient.delete('/role/del', { data: roleId });
+export function delRole(data) {
+  return requestClient.post('/role/del', data);
 }
 
 export function getListrole(id: any) {

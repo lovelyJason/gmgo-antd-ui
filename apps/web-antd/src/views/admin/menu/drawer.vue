@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="tsx" setup>
 import type { Recordable } from '@vben/types';
 
 import type { MenuType, SysApiType } from './index.vue';
@@ -6,8 +6,10 @@ import type { MenuType, SysApiType } from './index.vue';
 import { computed, onMounted, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
+import { useNamespace } from '@vben-core/composables';
+import { VbenIcon } from '@vben-core/shadcn-ui';
 
-import { message, Transfer } from 'ant-design-vue';
+import { Input, message, Transfer } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { addMenu, getMenu, listMenu, updateMenu } from '#/api/core/menu';
@@ -21,6 +23,7 @@ interface ChildProps {
   formData: MenuType;
 }
 
+const nsMenu = useNamespace('menu');
 const data = ref<Partial<ChildProps>>({
   type: 'add',
   sysApiList: [],
@@ -125,6 +128,8 @@ const schema = ref<any>([
     label: '菜单图标',
     rules: 'required',
     formItemClass: 'col-span-2',
+    help: '图标大全：https://icon-sets.iconify.design/',
+    // suffix: <VbenIcon class={nsMenu.e('icon')} icon="solar:home-broken" />,
   },
   {
     component: 'Input',
@@ -354,6 +359,14 @@ onMounted(() => {
 <template>
   <Drawer :title="`${data.type === 'add' ? '新增' : '修改'}菜单`">
     <Form>
+      <template #icon="slotProps">
+        <Input placeholder="请输入" v-bind="slotProps" />
+        <VbenIcon
+          :class="nsMenu.e('icon')"
+          :icon="slotProps.value"
+          style="width: 28px; height: 28px; margin-left: 16px"
+        />
+      </template>
       <template #apiPermission>
         <Transfer
           v-model:selected-keys="selectedRoleKeys"
